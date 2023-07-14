@@ -16,7 +16,7 @@ class CamareroMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && auth()->user()->user_type == 'cocinero') {
+        if (auth()->check() && auth()->user()->user_type == 'camarero') {
             // Lógica específica para el usuario de tipo "cocinero"
             // ...
             return $next($request);
