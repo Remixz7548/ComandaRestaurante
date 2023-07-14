@@ -8,5 +8,6 @@
 </head>
 <body>
     <H1>CAJERO</H1>
+    <a href="{{ route('logout') }}" class="cerrar-admin">Cerrar Sesión</a>
 </body>
 </html>
