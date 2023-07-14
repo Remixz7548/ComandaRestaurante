@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +14,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('Login');
+})->name('login')->middleware('guest');
+
+Route::get('/Admin', function () {
+    return view('admin.plantilla');
+})->middleware(['auth', 'admin']);
+
+Route::get('/Cajero', function () {
+    return view('cajero.plantilla');
+})->middleware(['auth', 'cajero']);
+
+Route::get('/Camarero', function () {
+    return view('camarero.plantilla');
+})->middleware(['auth', 'camarero']);
+
+Route::get('/Cocinero', function () {
+    return view('cocinero.plantilla');
+})->middleware(['auth', 'cocinero']);
+
+Route::post('/iniciosesion', 'App\Http\Controllers\LoginController@store')->name('iniciosesion.store');
+Route::get('/logout', 'App\Http\Controllers\LoginController@logout')->name('logout');
