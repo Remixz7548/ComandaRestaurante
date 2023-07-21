@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+/*============Login============*/
 *{
     margin: 0px;
     padding: 0px;
@@ -52,3 +53,138 @@
     font-size: 18px;
     transition: 0.5s;
 }
+
+/*========================*/
+.container{
+    width: 100%;
+    height: 100vh;
+}
+
+.menu{
+    position: fixed;
+    background-color: #20252C;
+    width: 20%;
+    height: 100vh;
+}
+
+.menu .titulo{
+    margin-top: 10px;
+    color: #ffffff;
+    text-decoration: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu .titulo .bx{
+    display: flex;
+    font-size: 50px;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+}
+
+.menu .titulo span{
+    font-weight: 600;
+    color: #ffffff;
+    font-size:24px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.menu .submenu{
+    width: 100%;
+    margin-top: 50px;
+}
+
+.menu .submenu li{
+    height: 48px;
+	background: transparent;
+	margin-left: 6px;
+	border-radius: 48px 0px 0px 48px;
+	padding: 3px;
+    margin-bottom: 10px;
+}
+
+.menu .submenu li a:hover{
+    background-color: #ffffff;
+    color: #20252C;
+}
+
+.menu .submenu li.active{
+	background: #ffffff;
+    position: relative;
+}
+
+.menu .submenu li.active a{
+    background-color: #20252C;
+	color: #ffffff;
+    transition: .5s;
+}
+
+.menu .submenu li.active::before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    top: -40px;
+    right: 0;
+    box-shadow: 20px 20px 0 #ffffff;
+    z-index: -1;
+    animation: fadeInOut .2s;
+}
+
+.menu .submenu li.active::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    bottom: -40px;
+    right: 0;
+    box-shadow: 20px -20px 0 #ffffff;
+    z-index: -1;
+    animation: fadeInOut .2s;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: .5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.menu .submenu li a{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-radius: 48px;
+    font-size: 20px;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.menu .submenu li a.logout{
+    color: rgb(224, 5, 5);
+}
+
+.menu .submenu li a .bx{
+    min-width: calc(60px - ((4px + 6px) * 2));
+    display: flex;
+    font-size: 18px;
+    justify-content: center;
+}
+
+/*===============Contenido====================*/
