@@ -60,11 +60,19 @@
     height: 100vh;
 }
 
+/*===============Menu lateral====================*/
+
 .menu{
     position: fixed;
     background-color: #20252C;
-    width: 20%;
+    width: 280px;
     height: 100vh;
+    transition: .3s ease;
+    overflow-x: hidden;
+}
+
+.menu.hide{
+    width: 60px;
 }
 
 .menu .titulo{
@@ -75,6 +83,7 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    z-index:0;
 }
 
 .menu .titulo .bx{
@@ -85,6 +94,11 @@
     padding: 5px;
     border: 3px solid #ffffff;
     border-radius: 50%;
+    transition: .3s ease;
+}
+
+.menu.hide .titulo .bx{
+    font-size: 30px;
 }
 
 .menu .titulo span{
@@ -97,6 +111,10 @@
     text-decoration: none;
 }
 
+.menu.hide .titulo span{
+    color: #20252C;
+}
+
 .menu .submenu{
     width: 100%;
     margin-top: 50px;
@@ -107,7 +125,7 @@
 	background: transparent;
 	margin-left: 6px;
 	border-radius: 48px 0px 0px 48px;
-	padding: 3px;
+	padding: 4px;
     margin-bottom: 10px;
 }
 
@@ -124,7 +142,12 @@
 .menu .submenu li.active a{
     background-color: #20252C;
 	color: #ffffff;
-    transition: .5s;
+    transition: .5s ease;
+}
+
+.menu.hide .submenu li a{
+    width: calc(48px - (4px * 2));
+    transition: width .3 ease;
 }
 
 .menu .submenu li.active::before {
@@ -174,6 +197,8 @@
     font-size: 20px;
     text-decoration: none;
     color: #ffffff;
+    white-space: nowrap;
+    overflow-x: hidden;
 }
 
 .menu .submenu li a.logout{
@@ -188,3 +213,75 @@
 }
 
 /*===============Contenido====================*/
+.contenido{
+    position: relative;
+    width: calc(100% - 280px);
+    left: 280px;
+    transition: .3s ease;
+}
+
+.menu.hide ~ .contenido {
+	width: calc(100% - 60px);
+	left: 60px;
+}
+/*===============Menu contenido====================*/
+
+.contenido nav{
+    background-color: #20252C;
+    color: #ffffff;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.contenido nav::before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    bottom: -40px;
+    left: 0;
+    border-radius: 50%;
+    box-shadow: -20px -20px 0 #20252C;
+    z-index: -1;
+}
+.contenido nav .bx.bx-menu{
+    cursor: pointer;
+    margin-left: 20px;
+    font-size: 18px;
+}
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 768px){
+    .container-login form{
+        width: 320px;
+    }
+    
+    
+    .menu {
+		width: 200px;
+	}
+
+	.contenido {
+		width: calc(100% - 200px);
+		left: 200px;
+	}
+
+    .menu .submenu li a{
+        font-size: 17px;
+    }
+}
+
+
+
+
+
+

@@ -12,10 +12,10 @@
 <body>
     <div class="container">
         <nav class="menu">
-            <a class="titulo" href="">
+            <div class="titulo" href="">
                 <i class='bx bx-restaurant' ></i>
                 <span>COMANDADAS</span>
-            </a>
+            </div>
             <ul class="submenu">
                 <li class="active">
                     <a href="#">
@@ -70,7 +70,7 @@
             </ul>
         </nav>
         <section class="contenido">
-            <nav class="menu-con">
+            <nav>
                 <i class='bx bx-menu'></i>
             </nav>
         </section>
