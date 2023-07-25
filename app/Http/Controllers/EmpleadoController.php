@@ -43,6 +43,8 @@ class EmpleadoController extends Controller
         $empleado->user_type = $request->user_type;
 
         $empleado->save();
+        return response()->json(['message' => 'Empleado creado correctamente']);
+
     }
 
     /**
@@ -89,7 +91,7 @@ class EmpleadoController extends Controller
 
         $empleado->save();
 
-        return $empleado;
+        return response()->json(['message' => 'Empleado actualizado correctamente']);
     }
 
     /**
