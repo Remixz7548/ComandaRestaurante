@@ -21,6 +21,10 @@ Route::get('/Admin', function () {
     return view('admin.plantilla');
 })->middleware(['auth', 'admin']);
 
+Route::get('/Admin/Empleados', function () {
+    return view('admin.empleados');
+})->middleware(['auth', 'admin']);
+
 Route::get('/Cajero', function () {
     return view('cajero.plantilla');
 })->middleware(['auth', 'cajero']);
