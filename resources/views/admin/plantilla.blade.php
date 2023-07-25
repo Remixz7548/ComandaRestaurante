@@ -20,7 +20,7 @@
             </div>
             <ul class="submenu">
                 <li class="@yield('menupanel')">
-                    <a href="#">
+                    <a href="/Admin">
                         <i class='bx bxs-dashboard'></i>
                         <span>Panel</span>
                     </a>
