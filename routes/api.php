@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/empleados', 'App\Http\Controllers\EmpleadoController@index');
+Route::post('/empleados', 'App\Http\Controllers\EmpleadoController@store');
+Route::put('/empleados/{id}', 'App\Http\Controllers\EmpleadoController@update');
+Route::delete('/empleados/{id}', 'App\Http\Controllers\EmpleadoController@delete');
