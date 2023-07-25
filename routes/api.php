@@ -18,4 +18,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/empleados', 'App\Http\Controllers\EmpleadoController@index');
 Route::post('/empleados', 'App\Http\Controllers\EmpleadoController@store');
 Route::put('/empleados/{id}', 'App\Http\Controllers\EmpleadoController@update');
-Route::delete('/empleados/{id}', 'App\Http\Controllers\EmpleadoController@delete');
+Route::delete('/empleados/{id}', 'App\Http\Controllers\EmpleadoController@destroy');

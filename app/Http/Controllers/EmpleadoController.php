@@ -39,7 +39,7 @@ class EmpleadoController extends Controller
         $empleado = new Empleado();
         $empleado->name = $request->name;
         $empleado->username = $request->username;
-        $empleado->password = $request->password;
+        $empleado->password = bcrypt($request->password);
         $empleado->user_type = $request->user_type;
 
         $empleado->save();
@@ -53,7 +53,7 @@ class EmpleadoController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -76,10 +76,15 @@ class EmpleadoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $empleado = Empleado::findDrFail($request->id);
+        $empleado = Empleado::find($id);
+
+        if (!$empleado) {
+            return response()->json(['message' => 'Empleado no encontrado'], 404);
+        }
+
         $empleado->name = $request->name;
         $empleado->username = $request->username;
-        $empleado->password = $request->password;
+        $empleado->password = bcrypt($request->password);
         $empleado->user_type = $request->user_type;
 
         $empleado->save();
@@ -93,9 +98,16 @@ class EmpleadoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Resquest $request)
+    public function destroy($id)
     {
-        $empleado = Empleado::destroy(request->id);
-        return $empleado;
-    }
+        $empleado = Empleado::find($id);
+
+        if (!$empleado) {
+            return response()->json(['message' => 'Empleado no encontrado'], 404);
+        }
+
+        $empleado->delete();
+
+        return response()->json(['message' => 'Empleado eliminado correctamente']);
+        }
 }
