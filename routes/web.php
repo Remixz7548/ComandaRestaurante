@@ -18,7 +18,7 @@ Route::get('/', function () {
 })->name('login')->middleware('guest');
 
 Route::get('/Admin', function () {
-    return view('admin.plantilla');
+    return view('admin.panel');
 })->middleware(['auth', 'admin']);
 
 Route::get('/Admin/Empleados', function () {
