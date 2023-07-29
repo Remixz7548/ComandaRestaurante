@@ -15,7 +15,7 @@ class EmpleadoController extends Controller
     public function index()
     {
         $empleados = Empleado::all();
-        return $empleados;
+        return response()->json($empleados);
     }
 
     /**
@@ -55,7 +55,8 @@ class EmpleadoController extends Controller
      */
     public function show($id)
     {
-        
+        $usuarios = User::where('user_type', $tipoUsuario)->get();
+        return response()->json($usuarios);
     }
 
     /**
