@@ -21,13 +21,17 @@
             <div class="buscar">
                 <input type="text" placeholder="Buscar nombre aqui . . ." name="" id="">
 
-                <select name="Rol" id="">
-                    <option hidden selected>Filtrar por rol</option>
-                    <option value="admin">Admin</option>
-                    <option value="cajero">Cajero</option>
-                    <option value="cocinero">Cocinero</option>
-                    <option value="camarero">Camarero</option>
-                </select>
+                <form action="{{ route('empleado.show') }}" method="GET">
+                    <select name="rol" id="rol">
+                        <option hidden selected>Filtrar por rol</option>
+                        <option value="todos">Todos</option>
+                        <option value="admin">Admin</option>
+                        <option value="cajero">Cajero</option>
+                        <option value="cocinero">Cocinero</option>
+                        <option value="camarero">Camarero</option>
+                    </select>
+                </form>
+                
             </div>
             <table id="tabla-empleados">
                 <thead>

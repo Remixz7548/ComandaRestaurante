@@ -53,10 +53,12 @@ class EmpleadoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        $usuarios = User::where('user_type', $tipoUsuario)->get();
-        return response()->json($usuarios);
+        $user_type = $request->get('rol');
+        $empleadosFiltrados = Empleado::where('user_type', $user_type)->get();
+        
+        return response()->json($empleadosFiltrados);
     }
 
     /**

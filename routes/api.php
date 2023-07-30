@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/empleados', 'App\Http\Controllers\EmpleadoController@index');
-Route::post('/empleados', 'App\Http\Controllers\EmpleadoController@store');
-Route::put('/empleados/{id}', 'App\Http\Controllers\EmpleadoController@update');
-Route::delete('/empleados/{id}', 'App\Http\Controllers\EmpleadoController@destroy');
+Route::get('/empleados', 'App\Http\Controllers\EmpleadoController@index')->name('empleado.index');
+Route::get('/empleados/show', 'App\Http\Controllers\EmpleadoController@show')->name('empleado.show');
+Route::post('/empleados', 'App\Http\Controllers\EmpleadoController@store')->name('empleado.store');
+Route::put('/empleados/{id}', 'App\Http\Controllers\EmpleadoController@update')->name('empleado.update');
+Route::delete('/empleados/{id}', 'App\Http\Controllers\EmpleadoController@destroy')->name('empleado.delete');
