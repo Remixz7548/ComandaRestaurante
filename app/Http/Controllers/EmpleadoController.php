@@ -36,6 +36,11 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
     {
+        $existingUsername = Empleado::where('username', $request->username)->first();
+        if ($existingUsername) {
+            return response()->json(['error' => 'Este usuario ya está registrado en la base de datos']);
+        }
+
         $empleado = new Empleado();
         $empleado->name = $request->name;
         $empleado->username = $request->username;

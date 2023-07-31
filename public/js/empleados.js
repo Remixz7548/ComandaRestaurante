@@ -1,6 +1,7 @@
 const tablaEmpleados = document.getElementById('tabla-empleados');
 const selectRol = document.getElementById('rol');
 const Agregarempleado = document.getElementById('add');
+const expNombre = /^(\b[a-zA-ZñÑ]+\b\s+){1,5}\b[a-zA-ZñÑ]+\b(\s*)$/;
 
 //=========================================INDEX==================================================
 // Función para obtener y mostrar los empleados
@@ -88,10 +89,10 @@ async function crearEmpleado() {
     const {value:formEmpleados} = await Swal.fire({
         title: 'Agregar Empleado',
         html:
-        '<input type="text" id="name" placeholder="Nombre">' +
-        '<input type="text" id="username" placeholder="Usuario">' +
-        '<input type="password" id="password" placeholder="Contraseña">' +
-        '<select name="rol" id="tipo">' +
+        '<input class="swal2-input" type="text" id="name" placeholder="Nombre">' +
+        '<input class="swal2-input" type="text" id="username" placeholder="Usuario">' +
+        '<input class="swal2-input" type="password" id="password" placeholder="Contraseña">' +
+        '<select class="swal2-input" name="rol" id="tipo">' +
             '<option value="admin">Admin</option>' +
             '<option value="cajero">Cajero</option>' +
             '<option value="cocinero">Cocinero</option>' +
@@ -107,28 +108,78 @@ async function crearEmpleado() {
             };
         },
     });
-    
-    if (formEmpleados) {
 
-        $.ajax({
-            type: 'post',
-            url: '/api/empleados',
-            data: {
-                name: formEmpleados.name,
-                username: formEmpleados.username,
-                password: formEmpleados.password,
-                user_type: formEmpleados.user_type
-            },
-            success:function(response) {
-                swal({
-                    title: "Registro exitoso!",
-                    text: response.message,
-                    icon: "success",
-                    confirmButtonText: "OK",
-                }).then(function() {
-                    obtenerEmpleados();
-                });
-            }
-        });
+    if (formEmpleados) {
+        if (formEmpleados.name.length == 0 || formEmpleados.username.length == 0 || formEmpleados.password.length == 0 || formEmpleados.user_type.length == 0) {
+            await swal({
+                title: "Error!",
+                text: "No debe haber campos vacíos",
+                icon: "error",
+                confirmButtonText: "OK",
+            }).then(function () {
+                crearEmpleado();
+            });
+        } else if (!expNombre.test(formEmpleados.name)) {
+            await swal({
+                title: "Error!",
+                text: "El nombre debe tener al menos dos nombres y solo permite letras",
+                icon: "error",
+                confirmButtonText: "OK",
+            }).then(function () {
+                crearEmpleado();
+            });
+        } else if (formEmpleados.username.length > 25) {
+            await swal({
+                title: "Error!",
+                text: "El usuario no debe tener una longitud mayor a 25",
+                icon: "error",
+                confirmButtonText: "OK",
+            }).then(function () {
+                crearEmpleado();
+            });
+        } else if (formEmpleados.password.length < 8) {
+            await swal({
+                title: "Error!",
+                text: "La contraseña debe tener al menos 8 caracteres",
+                icon: "error",
+                confirmButtonText: "OK",
+            }).then(function () {
+                crearEmpleado();
+            });
+        }else{
+            $.ajax({
+                type: 'post',
+                url: '/api/empleados',
+                data: {
+                    name: formEmpleados.name,
+                    username: formEmpleados.username,
+                    password: formEmpleados.password,
+                    user_type: formEmpleados.user_type
+                },
+                success:function(response) {
+                    if (response.success) {
+                        swal({
+                            title: "Registro exitoso!",
+                            text: response.message,
+                            icon: "success",
+                            confirmButtonText: "OK",
+                        }).then(function() {
+                            obtenerEmpleados();
+                        });
+                    }
+                    else if (response.error) {
+                        swal({
+                            title: "Error!",
+                            text: response.error,
+                            icon: "error",
+                            confirmButtonText: "OK",
+                        }).then(function() {
+                            obtenerEmpleados();
+                        });
+                    }
+                }
+            });
+        }
+        
     } 
 };
