@@ -1,6 +1,8 @@
 const tablaEmpleados = document.getElementById('tabla-empleados');
 const selectRol = document.getElementById('rol');
+const Agregarempleado = document.getElementById('add');
 
+//=========================================INDEX==================================================
 // Función para obtener y mostrar los empleados
 async function obtenerEmpleados() {
     try {
@@ -29,6 +31,7 @@ async function obtenerEmpleados() {
     }
 }
 
+//=========================================SHOW==================================================
 async function FiltradoEmpleados(rolSeleccionado) {
     try {
         const response = await axios.get('/api/empleados/show', {
@@ -78,3 +81,54 @@ selectRol.addEventListener('change', () => {
         FiltradoEmpleados(rolSeleccionado);
     }
 });
+
+//=========================================CREATE==================================================
+Agregarempleado.addEventListener("click", crearEmpleado);
+async function crearEmpleado() {
+    const {value:formEmpleados} = await Swal.fire({
+        title: 'Agregar Empleado',
+        html:
+        '<input type="text" id="name" placeholder="Nombre">' +
+        '<input type="text" id="username" placeholder="Usuario">' +
+        '<input type="password" id="password" placeholder="Contraseña">' +
+        '<select name="rol" id="tipo">' +
+            '<option value="admin">Admin</option>' +
+            '<option value="cajero">Cajero</option>' +
+            '<option value="cocinero">Cocinero</option>' +
+            '<option value="camarero">Camarero</option>' +
+        '</select>',
+        showCancelButton: true,
+        preConfirm: () => {
+            return {
+                name: document.getElementById("name").value,
+                username: document.getElementById("username").value,
+                password: document.getElementById("password").value,
+                user_type: document.getElementById("tipo").value
+            };
+        },
+    });
+    
+    if (formEmpleados) {
+
+        $.ajax({
+            type: 'post',
+            url: '/api/empleados',
+            data: {
+                name: formEmpleados.name,
+                username: formEmpleados.username,
+                password: formEmpleados.password,
+                user_type: formEmpleados.user_type
+            },
+            success:function(response) {
+                swal({
+                    title: "Registro exitoso!",
+                    text: response.message,
+                    icon: "success",
+                    confirmButtonText: "OK",
+                }).then(function() {
+                    obtenerEmpleados();
+                });
+            }
+        });
+    } 
+};

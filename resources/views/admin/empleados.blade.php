@@ -9,7 +9,7 @@
     <div class="container-con">
         <h1 class="Titulo">Empleados</h1>
         <div class="container-crud-add">
-            <button class="add">Crear nuevo usuario</button>
+            <button class="add" id="add">Crear nuevo usuario</button>
             <div class="bread">
                 <i class='bx bxs-home'></i>
                 <a href="/Admin">Panel</a>
