@@ -357,6 +357,7 @@
     border-radius: 5px;
     font-weight: 600;
     margin-right: 5px;
+    cursor: pointer;
 }
 
 .contenido .container-con .container-crud #tabla-empleados tbody .eliminar{
@@ -368,6 +369,7 @@
     border: 1px solid #fd0303;
     border-radius: 5px;
     font-weight: 600;
+    cursor: pointer;
 }
 
 

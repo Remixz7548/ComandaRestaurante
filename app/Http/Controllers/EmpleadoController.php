@@ -89,7 +89,7 @@ class EmpleadoController extends Controller
         $empleado = Empleado::find($id);
 
         if (!$empleado) {
-            return response()->json(['message' => 'Empleado no encontrado'], 404);
+            return response()->json(['error' => 'Empleado no encontrado'], 404);
         }
 
         $empleado->name = $request->name;
@@ -113,7 +113,7 @@ class EmpleadoController extends Controller
         $empleado = Empleado::find($id);
 
         if (!$empleado) {
-            return response()->json(['message' => 'Empleado no encontrado'], 404);
+            return response()->json(['error' => 'Empleado no encontrado'], 404);
         }
 
         $empleado->delete();
