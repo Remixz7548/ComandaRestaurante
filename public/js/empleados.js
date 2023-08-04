@@ -17,6 +17,7 @@ async function obtenerEmpleados() {
 
         empleados.forEach(empleado => {
             const tr = document.createElement('tr');
+            tr.classList.add('nombreEmpleado');
             tr.innerHTML = `
                 <td>${empleado.id}</td>
                 <td>${empleado.name}</td>
@@ -34,6 +35,20 @@ async function obtenerEmpleados() {
         console.error('Error al obtener los datos de empleados:', error);
     }
 }
+
+//=========================================SHOW==================================================
+document.addEventListener("keyup", e=>{
+
+    if (e.target.matches("#buscador")){
+        document.querySelectorAll(".nombreEmpleado").forEach(nombre =>{
+
+            nombre.textContent.toLowerCase().includes(e.target.value.toLowerCase())
+            ?nombre.classList.remove("filtro")
+            :nombre.classList.add("filtro")
+        })
+    }
+
+});
 
 //=========================================SHOW==================================================
 async function FiltradoEmpleados(rolSeleccionado) {
@@ -58,6 +73,7 @@ async function FiltradoEmpleados(rolSeleccionado) {
         } 
         empleados.forEach(empleado => {
             const tr = document.createElement('tr');
+            tr.classList.add('nombreEmpleado');
             tr.innerHTML = `
                 <td>${empleado.id}</td>
                 <td>${empleado.name}</td>

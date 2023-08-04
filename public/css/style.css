@@ -312,6 +312,10 @@
     width: 30%;
 }
 
+.filtro{
+    display: none;
+}
+
 .contenido .container-con .container-crud .buscar select{
     font-size: 16px;
     border: none;

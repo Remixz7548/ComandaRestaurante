@@ -19,7 +19,7 @@
         </div>
         <div class="container-crud">
             <div class="buscar">
-                <input type="text" placeholder="Buscar nombre aqui . . ." name="" id="">
+                <input type="text" placeholder="Buscar nombre aqui . . ." name="" id="buscador">
 
                 <form action="{{ route('empleado.show') }}" method="GET">
                     <select name="rol" id="rol">
