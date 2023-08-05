@@ -60,6 +60,7 @@ class EmpleadoController extends Controller
      */
     public function show(Request $request)
     {
+
         $user_type = $request->get('rol');
         $empleadosFiltrados = Empleado::where('user_type', $user_type)->get();
         
@@ -84,10 +85,26 @@ class EmpleadoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function showUpdate(Request $request)
+    {
+
+        $id = $request->get('id');
+        $empleado = Empleado::where('id', $id)->get();
+        
+        return response()->json($empleado);
+    }
+
     public function update(Request $request, $id)
     {
         $empleado = Empleado::find($id);
 
+        $existingUsername = Empleado::where('username', $request->username)->first();
+
+        if ($existingUsername) {
+            return response()->json(['error' => 'Este usuario ya está registrado en la base de datos']);
+        }
+        
         if (!$empleado) {
             return response()->json(['error' => 'Empleado no encontrado'], 404);
         }

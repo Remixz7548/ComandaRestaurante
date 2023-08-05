@@ -223,103 +223,119 @@ tablaEmpleados.addEventListener('click', (event) => {
 });
 
 async function editarEmpleado(empleadoId) {
+    try {
+        const response = await axios.get('/api/empleados/showUpdate', {
+            params: { id: empleadoId }
+        });
+        const empleado = response.data;
+        const formName = empleado[0].name;
+        const formUsermame = empleado[0].username;
+        const formTipo = empleado[0].user_type;
+        const {value:formEmpleados} = await Swal.fire({
+            title: 'Editar Empleado',
+            html:
+            '<input defaultValue="${formName}" class="swal2-input" type="text" id="name" placeholder="Nombre">' +
+            '<input value="formName" class="swal2-input" type="text" id="username" placeholder="Usuario">' +
+            '<input class="swal2-input" type="password" id="password" placeholder="Contraseña">' +
+            '<select class="swal2-input" name="rol" id="tipo">' +
+                '<option value="admin">Admin</option>' +
+                '<option value="cajero">Cajero</option>' +
+                '<option value="cocinero">Cocinero</option>' +
+                '<option value="camarero">Camarero</option>' +
+            '</select>',
+            showCancelButton: true,
+            didRender: () => {
+                // Establecer los valores de los campos después de que se crea el contenido del modal
+                document.getElementById('name').value = formName;
+                document.getElementById('username').value = formUsermame;
+                document.getElementById('tipo').value = formTipo;
+            },
+            preConfirm: () => {
+                return {
+                    name: document.getElementById("name").value,
+                    username: document.getElementById("username").value,
+                    password: document.getElementById("password").value,
+                    user_type: document.getElementById("tipo").value
+                };
+            },
+        });
 
-    const {value:formEmpleados} = await Swal.fire({
-        title: 'Editar Empleado',
-        html:
-        '<input class="swal2-input" type="text" id="name" placeholder="Nombre">' +
-        '<input class="swal2-input" type="text" id="username" placeholder="Usuario">' +
-        '<input class="swal2-input" type="password" id="password" placeholder="Contraseña">' +
-        '<select class="swal2-input" name="rol" id="tipo">' +
-            '<option value="admin">Admin</option>' +
-            '<option value="cajero">Cajero</option>' +
-            '<option value="cocinero">Cocinero</option>' +
-            '<option value="camarero">Camarero</option>' +
-        '</select>',
-        showCancelButton: true,
-        preConfirm: () => {
-            return {
-                name: document.getElementById("name").value,
-                username: document.getElementById("username").value,
-                password: document.getElementById("password").value,
-                user_type: document.getElementById("tipo").value
-            };
-        },
-    });
-
-    if (formEmpleados) {
-        if (formEmpleados.name.length == 0 || formEmpleados.username.length == 0 || formEmpleados.password.length == 0 || formEmpleados.user_type.length == 0) {
-            await swal({
-                title: "Error!",
-                text: "No debe haber campos vacíos",
-                icon: "error",
-                confirmButtonText: "OK",
-            }).then(function () {
-                editarEmpleado();
-            });
-        } else if (!expNombre.test(formEmpleados.name)) {
-            await swal({
-                title: "Error!",
-                text: "El nombre debe tener al menos dos nombres y solo permite letras",
-                icon: "error",
-                confirmButtonText: "OK",
-            }).then(function () {
-                editarEmpleado();
-            });
-        } else if (formEmpleados.username.length > 25) {
-            await swal({
-                title: "Error!",
-                text: "El usuario no debe tener una longitud mayor a 25",
-                icon: "error",
-                confirmButtonText: "OK",
-            }).then(function () {
-                editarEmpleado();
-            });
-        } else if (formEmpleados.password.length < 8) {
-            await swal({
-                title: "Error!",
-                text: "La contraseña debe tener al menos 8 caracteres",
-                icon: "error",
-                confirmButtonText: "OK",
-            }).then(function () {
-                editarEmpleado();
-            });
-        }else{
-            $.ajax({
-                type: 'put',
-                url: '/api/empleados/' + empleadoId,
-                data: {
-                    name: formEmpleados.name,
-                    username: formEmpleados.username,
-                    password: formEmpleados.password,
-                    user_type: formEmpleados.user_type
-                },
-                success:function(response) {
-                    if (response.message) {
-                        swal({
-                            title: "Actualizacion exitosa!",
-                            text: response.message,
-                            icon: "success",
-                            confirmButtonText: "OK",
-                        }).then(function() {
-                            obtenerEmpleados();
-                        });
+        if (formEmpleados) {
+            if (formEmpleados.name.length == 0 || formEmpleados.username.length == 0 || formEmpleados.password.length == 0 || formEmpleados.user_type.length == 0) {
+                await swal({
+                    title: "Error!",
+                    text: "No debe haber campos vacíos",
+                    icon: "error",
+                    confirmButtonText: "OK",
+                }).then(function () {
+                    editarEmpleado(empleadoId);
+                });
+            } else if (!expNombre.test(formEmpleados.name)) {
+                await swal({
+                    title: "Error!",
+                    text: "El nombre debe tener al menos dos nombres y solo permite letras",
+                    icon: "error",
+                    confirmButtonText: "OK",
+                }).then(function () {
+                    editarEmpleado(empleadoId);
+                });
+            } else if (formEmpleados.username.length > 25) {
+                await swal({
+                    title: "Error!",
+                    text: "El usuario no debe tener una longitud mayor a 25",
+                    icon: "error",
+                    confirmButtonText: "OK",
+                }).then(function () {
+                    editarEmpleado(empleadoId);
+                });
+            } else if (formEmpleados.password.length < 8) {
+                await swal({
+                    title: "Error!",
+                    text: "La contraseña debe tener al menos 8 caracteres",
+                    icon: "error",
+                    confirmButtonText: "OK",
+                }).then(function () {
+                    editarEmpleado(empleadoId);
+                });
+            }else{
+                $.ajax({
+                    type: 'put',
+                    url: '/api/empleados/' + empleadoId,
+                    data: {
+                        name: formEmpleados.name,
+                        username: formEmpleados.username,
+                        password: formEmpleados.password,
+                        user_type: formEmpleados.user_type
+                    },
+                    success:function(response) {
+                        if (response.message) {
+                            swal({
+                                title: "Actualizacion exitosa!",
+                                text: response.message,
+                                icon: "success",
+                                confirmButtonText: "OK",
+                            }).then(function() {
+                                obtenerEmpleados();
+                            });
+                        }
+                        else if (response.error) {
+                            swal({
+                                title: "Error!",
+                                text: response.error,
+                                icon: "error",
+                                confirmButtonText: "OK",
+                            }).then(function() {
+                                editarEmpleado(empleadoId);
+                            });
+                        }
                     }
-                    else if (response.error) {
-                        swal({
-                            title: "Error!",
-                            text: response.error,
-                            icon: "error",
-                            confirmButtonText: "OK",
-                        }).then(function() {
-                            obtenerEmpleados();
-                        });
-                    }
-                }
-            });
-        }
-        
-    } 
+                });
+            }
+            
+        } 
+    } catch (error) {
+        console.error('Error al obtener los datos de empleados:', error);
+    }
 };
 
 //=========================================DELETE==================================================
