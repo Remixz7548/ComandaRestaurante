@@ -244,6 +244,7 @@ async function editarEmpleado(empleadoId) {
                 '<option value="camarero">Camarero</option>' +
             '</select>',
             showCancelButton: true,
+            cancelButtonColor: '#d33',
             didRender: () => {
                 // Establecer los valores de los campos después de que se crea el contenido del modal
                 document.getElementById('name').value = formName;
@@ -355,42 +356,51 @@ tablaEmpleados.addEventListener('click', (event) => {
 });
 
 async function eliminarEmpleado(empleadoId) {
-    Swal.fire({
-        title: 'Eliminar Empleado',
-        text: "¿Deseas eliminar este empleado?",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Eliminar'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                type: 'delete',
-                url: '/api/empleados/' + empleadoId,
-                success:function(response) {
-                    if (response.message) {
-                        swal({
-                            title: "Eliminacion exitosa!",
-                            text: response.message,
-                            icon: "success",
-                            confirmButtonText: "OK",
-                        }).then(function() {
-                            obtenerEmpleados();
-                        });
+    try {
+        const response = await axios.get('/api/empleados/showUpdate', {
+            params: { id: empleadoId }
+        });
+        const empleado = response.data;
+        const formName = empleado[0].name;
+        Swal.fire({
+            title: 'Eliminar Empleado',
+            text: "¿Deseas eliminar al empleado "+formName+"?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Eliminar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'delete',
+                    url: '/api/empleados/' + empleadoId,
+                    success:function(response) {
+                        if (response.message) {
+                            swal({
+                                title: "Eliminacion exitosa!",
+                                text: response.message,
+                                icon: "success",
+                                confirmButtonText: "OK",
+                            }).then(function() {
+                                obtenerEmpleados();
+                            });
+                        }
+                        else if (response.error) {
+                            swal({
+                                title: "Error!",
+                                text: response.error,
+                                icon: "error",
+                                confirmButtonText: "OK",
+                            }).then(function() {
+                                obtenerEmpleados();
+                            });
+                        }
                     }
-                    else if (response.error) {
-                        swal({
-                            title: "Error!",
-                            text: response.error,
-                            icon: "error",
-                            confirmButtonText: "OK",
-                        }).then(function() {
-                            obtenerEmpleados();
-                        });
-                    }
-                }
-            });
-        }
-    })
+                });
+            }
+        })
+    } catch (error) {
+        console.error('Error al obtener los datos de empleados:', error);
+    }
 }
