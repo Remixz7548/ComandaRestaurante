@@ -33,7 +33,7 @@
                     </a>
                 </li>
                 <li class="@yield('menuproducto')">
-                    <a href="#">
+                    <a href="/Admin/Productos">
                         <i class='bx bxs-food-menu' ></i>
                         <span>Productos</span>
                     </a>
