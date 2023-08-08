@@ -22,13 +22,12 @@
                 <input type="text" placeholder="Buscar nombre aqui . . ." name="" id="buscador">
 
                 <form action="{{ route('empleado.show') }}" method="GET">
-                    <select name="rol" id="rol">
-                        <option hidden selected>Filtrar por rol</option>
+                    <select name="rol" id="categoria">
+                        <option hidden selected>Filtrar por categoria</option>
                         <option value="todos">Todos</option>
-                        <option value="admin">Admin</option>
-                        <option value="cajero">Cajero</option>
-                        <option value="cocinero">Cocinero</option>
-                        <option value="camarero">Camarero</option>
+                        <option value="Bebidas">Bebidas</option>
+                        <option value="Platillos">Platillos</option>
+                        <option value="Postres">Postres</option>
                     </select>
                 </form>
                 
@@ -37,8 +36,9 @@
                 <thead>
                     <th>Id</th>
                     <th>Nombre</th>
-                    <th>Usuario</th>
-                    <th>Tipo de Usuarios</th>
+                    <th>Precio</th>
+                    <th>Catgoria</th>
+                    <th>Estatus</th>
                     <th>Fecha de Creacion</th>
                     <th></th>
                 </thead>
@@ -51,5 +51,5 @@
     </div>
 @endsection
 @section('scripts')
-    <script src="{{ asset('js/empleados.js') }}"></script>
+    <script src="{{ asset('js/productos.js') }}"></script>
 @endsection
